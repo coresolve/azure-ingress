@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: global-ingress-lb
+    component: ingress-controller
+  name: global-ingress-lb
+  namespace: kube-system
+  selfLink: /api/v1/namespaces//services/tectonic-lb
+spec:
+  ports:
+  - name: https
+    port: 443
+    protocol: TCP
+    targetPort: 443
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  - name: health
+    port: 10254
+    protocol: TCP
+    targetPort: 10254
+  selector:
+    app: global-ingress-controller
+    component: ingress-controller
+  sessionAffinity: None
+  type: NodePort
+status:
+  loadBalancer: {}
